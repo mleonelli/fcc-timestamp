@@ -27,12 +27,12 @@ app.get("/api/hello", function (req, res) {
 app.get("/api/timestamp/:date_string?", function (req, res) {
   var date_string = req.params.date_string;
   var date = new Date();
-  if(date_string === ""){
+  if(!date_string){
     res.json({"unix": date.getTime(), "utc" : date.toUTCString() });
   }
   else{
-    date = Date.parse(date_string);
-    if(date === NaN)
+    date = new Date(Date.parse(date_string));
+    if(isNaN(date))
       res.json({"unix": null, "utc" : "Invalid Date" });
   }
   res.json({"unix": date.getTime(), "utc" : date.toUTCString() });
